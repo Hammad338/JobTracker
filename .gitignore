@@ -1,0 +1,23 @@
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+*.class
+*.log
+
+.idea/
+*.iml
+*.iws
+.project
+.classpath
+.settings/
+
+.DS_Store
+Thumbs.db
+
+*.env
+application-local.properties
+
+# H2 persistent database — contains personal data, never commit
+data/

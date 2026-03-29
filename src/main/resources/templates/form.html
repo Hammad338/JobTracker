@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${formTitle} + ' — JobTracker'">Form — JobTracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<header class="site-header">
+    <a href="/" class="logo">JT<span class="logo-dot">.</span></a>
+    <nav class="header-nav">
+        <a href="/" class="nav-link">← Dashboard</a>
+    </nav>
+    <div class="header-actions">
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="btn-ghost btn-logout">Sign out</button>
+        </form>
+    </div>
+</header>
+
+<main class="container form-page">
+
+    <h1 class="form-title" th:text="${formTitle}">New Application</h1>
+
+    <div class="form-card">
+        <form th:action="@{${formAction}}" th:object="${applicationDto}" method="post" class="app-form">
+
+            <div class="form-row">
+                <div class="form-group" th:classappend="${#fields.hasErrors('company')} ? ' has-error' : ''">
+                    <label for="company">Company *</label>
+                    <input type="text" id="company" th:field="*{company}" placeholder="e.g. Stripe" autocomplete="off"/>
+                    <span class="field-error" th:if="${#fields.hasErrors('company')}" th:errors="*{company}"></span>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('role')} ? ' has-error' : ''">
+                    <label for="role">Role *</label>
+                    <input type="text" id="role" th:field="*{role}" placeholder="e.g. Backend Engineer" autocomplete="off"/>
+                    <span class="field-error" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" th:field="*{location}" placeholder="e.g. Berlin (Hybrid)"/>
+                </div>
+                <div class="form-group">
+                    <label for="url">Job URL</label>
+                    <input type="url" id="url" th:field="*{url}" placeholder="https://…"/>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group" th:classappend="${#fields.hasErrors('status')} ? ' has-error' : ''">
+                    <label for="status">Status *</label>
+                    <select id="status" th:field="*{status}">
+                        <option value="">— Select status —</option>
+                        <option th:each="s : ${statuses}"
+                                th:value="${s.name()}"
+                                th:text="${s.name().replace('_', ' ')}"></option>
+                    </select>
+                    <span class="field-error" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="appliedDate">Applied Date</label>
+                    <input type="date" id="appliedDate" th:field="*{appliedDate}"/>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="notes">Notes</label>
+                <textarea id="notes" th:field="*{notes}" rows="4"
+                          placeholder="Interview notes, contacts, follow-up reminders…"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <a href="/" class="btn-ghost">Cancel</a>
+                <button type="submit" class="btn-primary">Save Application</button>
+            </div>
+
+        </form>
+    </div>
+
+</main>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

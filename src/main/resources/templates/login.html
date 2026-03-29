@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign in — JobTracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<div class="login-page">
+    <div class="login-card">
+
+        <div class="login-brand">
+            <div class="login-logo-mark">JT</div>
+            <div class="login-brand-text">
+                <div class="login-brand-name">JobTracker</div>
+                <div class="login-brand-sub">Personal Dashboard</div>
+            </div>
+        </div>
+
+        <p class="login-heading">Sign in to continue</p>
+
+        <div th:if="${param.error}" class="login-alert error">
+            Incorrect username or password.
+        </div>
+        <div th:if="${param.logout}" class="login-alert success">
+            You've been signed out successfully.
+        </div>
+
+        <form th:action="@{/login}" method="post" class="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username" autocomplete="username" autofocus
+                       placeholder="Enter username"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password" autocomplete="current-password"
+                       placeholder="Enter password"/>
+            </div>
+            <button type="submit" class="btn-primary btn-login">Sign in →</button>
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
